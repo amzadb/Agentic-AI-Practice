@@ -1,10 +1,8 @@
 from agno.agent import Agent
 from agno.tools.youtube import YouTubeTools
 
-import os
-from dotenv import load_dotenv
-load_dotenv()
-os.environ["OPENAI_API_KEY"]=os.getenv("OPENAI_API_KEY")
+from util.LoadMyKeys import load_keys
+load_keys()
 
 agent = Agent(
     tools=[YouTubeTools()],
