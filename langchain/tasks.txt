@@ -1,0 +1,10 @@
+Update the AI Agentic Practice Homepage
+Reply to Customer support tickets
+Write a monthly newsletter
+Fix login bug on the portal
+Cleanup the unused AWS buckets
+Post an Instagram update about the product launch
+Backup the database
+Research competitor pricing
+Schedule team launch
+Prepare the SoW document for new client

@@ -9,3 +9,7 @@ yfinance
 youtube-transcript-api
 langchain-openai
 openpyxl
+streamlit
+python-docx 
+PyPDF2 
+fpdf
