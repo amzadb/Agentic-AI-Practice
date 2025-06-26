@@ -8,6 +8,7 @@ from agno.models.groq import Groq
 
 from agno.tools.googlesearch import GoogleSearchTools
 from agno.tools.duckduckgo import DuckDuckGoTools
+from agno.tools.exa import ExaTools
 
 from util.LoadMyKeys import load_keys
 load_keys()
@@ -17,6 +18,8 @@ def SearchTools(search_tool):
         return DuckDuckGoTools()
     if search_tool == "Google Search":
         return GoogleSearchTools()
+    if search_tool == "Exa Search":
+        return ExaTools()
     
 def OpenAIAgent(prompt, search_tool):
     agent = Agent(
@@ -59,8 +62,7 @@ agent_option = st.selectbox(
 
 search_tool_option = st.selectbox(
     "Select Search Tool",
-    ("Duck Duck Go", "Google Search")
-    # , "Microsoft Bing", "Yahoo!")
+    ("Duck Duck Go", "Google Search", "Exa Search")
 )
 
 # Prompt textarea
@@ -97,4 +99,9 @@ if st.button("Search"):
 
         # Display promte text as a tag
         st.markdown(f'<span class="tag">{prompt_text}</span>', unsafe_allow_html=True)
+        
+        # Display Gemini logo (replace with your logo path or URL)
+        # st.image("./streamlit/img/Google_Gemini_logo.svg", width=80)
+        
+        # Display the result
         st.markdown(result)
