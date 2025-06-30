@@ -1,8 +1,8 @@
 from agno.agent import Agent
 from agno.tools.youtube import YouTubeTools
 
-from util.LoadMyKeys import load_keys
-load_keys()
+from keys import load_my_keys
+load_my_keys()
 
 agent = Agent(
     tools=[YouTubeTools()],

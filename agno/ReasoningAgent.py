@@ -3,8 +3,8 @@ from agno.models.google import Gemini
 from agno.tools.reasoning import ReasoningTools
 from agno.tools.yfinance import YFinanceTools
 
-from util.LoadMyKeys import load_keys
-load_keys()
+from keys import load_my_keys
+load_my_keys()
 
 agent=Agent(
     model=Gemini(id="gemini-2.0-flash"),

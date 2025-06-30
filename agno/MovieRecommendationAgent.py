@@ -5,8 +5,8 @@ from agno.models.openai import OpenAIChat
 from agno.tools.exa import ExaTools
 from agno.playground import Playground, serve_playground_app, PlaygroundSettings
 
-from util.LoadMyKeys import load_keys
-load_keys()
+from keys import load_my_keys
+load_my_keys()
 
 agent = Agent(
     name="Movie Recommendation Agent",

@@ -15,3 +15,7 @@ PyPDF2
 fpdf
 exa_py
 sqlalchemy
+
+# Microsoft AutoGen
+autogen-agentchat
+autogen-ext[openai,azure]

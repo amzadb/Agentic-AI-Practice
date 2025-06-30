@@ -4,8 +4,8 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.yfinance import YFinanceTools
 
-from util.LoadMyKeys import load_keys
-load_keys()
+from keys import load_my_keys
+load_my_keys()
 
 finance_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),

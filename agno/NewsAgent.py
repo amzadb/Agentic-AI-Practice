@@ -3,8 +3,8 @@ import httpx
 
 from agno.agent import Agent
 
-from util.LoadMyKeys import load_keys
-load_keys()
+from keys import load_my_keys
+load_my_keys()
 
 def get_top_hackernews_stories(num_stories: int = 10) -> str:
     """

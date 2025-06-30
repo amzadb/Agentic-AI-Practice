@@ -6,12 +6,8 @@ from agno.tools.yfinance import YFinanceTools
 
 from agno.playground import Playground, serve_playground_app
 
-import os
-from dotenv import load_dotenv
-load_dotenv()
-
-os.environ["OPENAI_API_KEY"]=os.getenv("OPENAI_API_KEY")
-os.environ["GROQ_API_KEY"]=os.getenv("GROQ_API_KEY")
+from keys import load_my_keys
+load_my_keys()
 
 web_agent=Agent(
     name="Web Agent",

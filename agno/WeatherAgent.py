@@ -4,8 +4,8 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools import tool
 
-from util.LoadMyKeys import load_keys
-load_keys()
+from keys import load_my_keys
+load_my_keys()
 
 @tool(show_result=True, stop_after_tool_call=True)
 def get_weather(city: str) -> str:

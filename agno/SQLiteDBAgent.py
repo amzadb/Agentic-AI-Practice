@@ -2,8 +2,8 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.sql import SQLTools
 
-from util.LoadMyKeys import load_keys
-load_keys()
+from keys import load_my_keys
+load_my_keys()
 
 # Agent with SQLite database tools
 agent = Agent(
@@ -19,3 +19,4 @@ agent = Agent(
 # agent.print_response("Show me all tables in the database and their schemas")
 # agent.print_response("List all artists in the database")
 agent.print_response("List the employees from the database")
+# agent.print_response("Insert a new employee with first name 'Amzad', last name 'Basha', title 'AI Engineer' and email 'amzad.basha@gmail.com'")
