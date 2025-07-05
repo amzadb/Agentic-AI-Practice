@@ -2,10 +2,12 @@ import streamlit as st
 
 from agno.agent import Agent
 
+from agno.models.anthropic import Claude
 from agno.models.openai import OpenAIChat
 from agno.models.google import Gemini
 from agno.models.groq import Groq
 
+from agno.tools.baidusearch import BaiduSearchTools
 from agno.tools.googlesearch import GoogleSearchTools
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.exa import ExaTools
@@ -13,43 +15,40 @@ from agno.tools.exa import ExaTools
 from util.LoadMyKeys import load_keys
 load_keys()
 
-def SearchTools(search_tool):
-    if search_tool == "Duck Duck Go":
-        return DuckDuckGoTools()
-    if search_tool == "Google Search":
-        return GoogleSearchTools()
-    if search_tool == "Exa Search":
-        return ExaTools()
-    
-def OpenAIAgent(prompt, search_tool):
-    agent = Agent(
-        model=OpenAIChat(id="gpt-4o"),
-        tools=[SearchTools(search_tool)],
-        markdown=True
-    )
-    agent.print_response(prompt)
-    return agent.run(prompt).content
-    # return f"**OpenAI Agent** used with **{search_tool}**.\n\nPrompt: {prompt}\n\n_Result: This is a sample response from OpenAI Agent._"
+def MyAgent(agent, search_tool):
+    # Initialize the model based on the selected agent
+    if agent == "Anthropic":
+        model = Claude(id="claude-sonnet-4-20250514")
+    elif agent == "Open AI":
+        model = OpenAIChat(id="gpt-4o")
+    elif agent == "Gemini":
+        model = Gemini(id="gemini-2.0-flash")
+    elif agent == "Groq":
+        model = Groq(id="gemma2-9b-it")
 
-def GeminiAgent(prompt, search_tool):
-    agent=Agent(
-        model=Gemini(id="gemini-2.0-flash"),
-        tools=[SearchTools(search_tool)],
-        markdown=True
+    # Initialize the search tool based on the selected option
+    if search_tool == "Baidu Search":
+        tool = BaiduSearchTools()
+    elif search_tool == "Duck Duck Go":
+        tool = DuckDuckGoTools()
+    elif search_tool == "Google Search":
+        tool = GoogleSearchTools()
+    elif search_tool == "Exa Search":
+        tool = ExaTools()
+    else: 
+        tool = None
+        
+    return Agent(
+        model = model,
+        tools = [tool] if tool else [],
+        description = "You are a search agent that helps users find the most relevant information using Baidu.",
+        instructions = [
+            "Given a topic by the user, respond with the most relevant search results about that topic.",
+            "Search for 3 results and select the top one unique item."
+        ],
+        show_tool_calls = True,
+        markdown = True
     )
-    agent.print_response(prompt)
-    return agent.run(prompt).content
-    # return f"**Gemini Agent** used with **{search_tool}**.\n\nPrompt: {prompt}\n\n_Result: This is a sample response from Gemini Agent._"
-
-def GroqAgent(prompt, search_tool):
-    agent = Agent(
-        model=Groq(id="gemma2-9b-it"),
-        tools=[SearchTools(search_tool)],
-        markdown=True
-    )
-    agent.print_response(prompt)
-    return agent.run(prompt).content
-    # return f"**Groq Agent** used with **{search_tool}**.\n\nPrompt: {prompt}\n\n_Result: This is a sample response from Groq Agent._"
 
 # --- Streamlit UI ---
 st.title("AI Agent Search Application")
@@ -57,12 +56,12 @@ st.title("AI Agent Search Application")
 # Dropdowns
 agent_option = st.selectbox(
     "Select AI Agent",
-    ("Google Gemini", "Groq", "Open AI")
+    ("Anthropic", "Gemini", "Groq", "Open AI")
 )
 
 search_tool_option = st.selectbox(
     "Select Search Tool",
-    ("Duck Duck Go", "Google Search", "Exa Search")
+    ("Baidu Search", "Duck Duck Go", "Exa Search", "Google Search")
 )
 
 # Prompt textarea
@@ -73,14 +72,9 @@ if st.button("Search"):
     if not prompt_text.strip():
         st.warning("Please enter a prompt.")
     else:
-        if agent_option == "Open AI":
-            result = OpenAIAgent(prompt_text, search_tool_option)
-        elif agent_option == "Google Gemini":
-            result = GeminiAgent(prompt_text, search_tool_option)
-        elif agent_option == "Groq":
-            result = GroqAgent(prompt_text, search_tool_option)
-        else:
-            result = "Invalid agent selected."
+        agent = MyAgent(agent_option, search_tool_option)
+        agent.print_response(prompt_text)
+        result = agent.run(prompt_text).content
 
         # Custom CSS for tag style
         st.markdown("""
@@ -99,9 +93,6 @@ if st.button("Search"):
 
         # Display promte text as a tag
         st.markdown(f'<span class="tag">{prompt_text}</span>', unsafe_allow_html=True)
-        
-        # Display Gemini logo (replace with your logo path or URL)
-        # st.image("./streamlit/img/Google_Gemini_logo.svg", width=80)
-        
+      
         # Display the result
         st.markdown(result)

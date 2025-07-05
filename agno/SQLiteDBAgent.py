@@ -19,4 +19,4 @@ agent = Agent(
 # agent.print_response("Show me all tables in the database and their schemas")
 # agent.print_response("List all artists in the database")
 agent.print_response("List the employees from the database")
-# agent.print_response("Insert a new employee with first name 'Amzad', last name 'Basha', title 'AI Engineer' and email 'amzad.basha@gmail.com'")
+# agent.print_response("Insert a new employee with first name 'Kireeti', last name 'S', title 'AI Engineer' and email 'kireeti.s@gmail.com'")
