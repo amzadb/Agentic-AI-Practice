@@ -6,7 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from util.LoadMyKeys import load_keys
 load_keys()
 
-from util.MyLearningAgent import MyLearningAgent
+from agents.MyLearningAgent import MyLearningAgent
 
 # Streamlit app for personalized learning plan generation
 st.title("Personalized Learning Plan Generator")

@@ -3,9 +3,10 @@ import streamlit as st
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from util.MySearchAgent import MySearchAgent
 from util.LoadMyKeys import load_keys
 load_keys()
+
+from agents.MySearchAgent import MySearchAgent
 
 # --- Streamlit UI ---
 st.title("AI Agent Search Application")
