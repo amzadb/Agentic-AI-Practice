@@ -2,9 +2,12 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
-from util.MySearchAgent import MySearchAgent
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from util.LoadMyKeys import load_keys
-load_keys()
+from agents.MySearchAgent import MySearchAgent
 
 app = FastAPI()
 
