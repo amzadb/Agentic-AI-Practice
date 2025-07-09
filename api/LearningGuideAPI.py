@@ -1,6 +1,6 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from fastapi.middleware.cors import CORSMiddleware
+
 import sys
 import os
 
@@ -10,16 +10,7 @@ from agents.MyLearningAgent import MyLearningAgent
 
 load_keys()
 
-app = FastAPI()
-
-# Optional: Enable CORS for frontend integration
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+router = APIRouter()
 
 class LearningPlanRequest(BaseModel):
     strong_skills: str
@@ -27,7 +18,7 @@ class LearningPlanRequest(BaseModel):
     aspirations: str
     linkedin_url: str = None
 
-@app.post("/learning-plan")
+@router.post("/learning-plan")
 def generate_learning_plan(request: LearningPlanRequest):
     try:
         prompt = (
