@@ -5,6 +5,8 @@ from keys import load_my_keys
 load_my_keys()
 
 agent = Agent(
+    model="gemini-2.0-flash",
+    name="YouTubeSummaryAgent",
     tools=[YouTubeTools()],
     show_tool_calls=True,
     description="You are a YouTube agent. Obtain the captions of a YouTube video and answer questions.",
