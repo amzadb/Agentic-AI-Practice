@@ -30,9 +30,6 @@ from agno.agent import Agent
 from agno.models.groq import Groq
 from agno.tools.duckduckgo import DuckDuckGoTools
 
-# from keys import load_my_keys
-# load_my_keys()
-
 from dotenv import load_dotenv
 load_dotenv()  # Load environment variables from .env file
 
