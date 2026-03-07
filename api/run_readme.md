@@ -55,7 +55,7 @@ python -m api.main
 
 **Alternative with auto-reload (for development):**
 ```bash
-uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
+uvicorn api.main:app --reload --host localhost --port 8000
 ```
 
 **Endpoints:**
