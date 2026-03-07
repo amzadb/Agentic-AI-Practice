@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from api.SearchAgentsAPI import router as search_router
-from api.LearningGuideAPI import router as learning_router
+from api.LearningAgentAPI import router as learning_router
 
 app = FastAPI(title="AI Agents API", version="1.0.0")
 

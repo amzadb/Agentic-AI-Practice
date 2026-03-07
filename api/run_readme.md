@@ -25,9 +25,9 @@ python -m api.SearchAgentsAPI
 }
 ```
 
-### LearningGuideAPI on port 8002:
+### LearningAgentAPI on port 8002:
 ```bash
-python -m api.LearningGuideAPI
+python -m api.LearningAgentAPI
 ```
 
 **Endpoint:**
@@ -60,7 +60,7 @@ uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
 
 **Endpoints:**
 - POST `http://localhost:8000/search` (SearchAgentsAPI)
-- POST `http://localhost:8000/learning-plan` (LearningGuideAPI)
+- POST `http://localhost:8000/learning-plan` (LearningAgentAPI)
 
 ---
 
@@ -73,7 +73,7 @@ curl -X POST http://localhost:8001/search `
   -d '{\"agent\": \"Groq\", \"search_tool\": \"duck duck go\", \"prompt\": \"What is generative AI?\"}'
 ```
 
-### LearningGuideAPI Test:
+### LearningAgentAPI Test:
 ```powershell
 curl -X POST http://localhost:8002/learning-plan `
   -H "Content-Type: application/json" `
@@ -91,7 +91,7 @@ $body = @{
 
 Invoke-RestMethod -Uri "http://localhost:8001/search" -Method Post -Body $body -ContentType "application/json"
 
-# LearningGuideAPI
+# LearningAgentAPI
 $body = @{
     strong_skills = "Python, Machine Learning"
     weak_areas = "Web Development"
@@ -108,7 +108,7 @@ Invoke-RestMethod -Uri "http://localhost:8002/learning-plan" -Method Post -Body 
 | Setup | Command | Port(s) | What Runs |
 |-------|---------|---------|-----------|
 | **Standalone Search** | `python -m api.SearchAgentsAPI` | 8001 | SearchAgentsAPI only |
-| **Standalone Learning** | `python -m api.LearningGuideAPI` | 8002 | LearningGuideAPI only |
+| **Standalone Learning** | `python -m api.LearningAgentAPI` | 8002 | LearningAgentAPI only |
 | **Both Standalone** | Both commands above (2 terminals) | 8001 + 8002 | Both APIs independently |
 | **Integrated (Production)** | `python -m api.main` | 8000 | Search + Learning APIs together |
 
@@ -116,12 +116,12 @@ Invoke-RestMethod -Uri "http://localhost:8002/learning-plan" -Method Post -Body 
 
 ## How It Works
 
-### API Structure (Both SearchAgentsAPI and LearningGuideAPI):
+### API Structure (Both SearchAgentsAPI and LearningAgentAPI):
 - **Router** (`router` variable) - Can be included in other apps via `app.include_router(router)`
 - **Standalone Function** (`create_app()`) - Creates a standalone FastAPI app instance
 - **Standalone Execution** (`if __name__ == "__main__"`) - Runs independently on dedicated ports
   - SearchAgentsAPI: port 8001
-  - LearningGuideAPI: port 8002
+  - LearningAgentAPI: port 8002
 
 This dual approach allows both APIs to be:
 1. **Integrated** into main.py as routers
@@ -136,7 +136,7 @@ This dual approach allows both APIs to be:
 **Solution:** Make sure you run commands from the project root directory and use the `-m` flag:
 ```bash
 python -m api.SearchAgentsAPI
-python -m api.LearningGuideAPI
+python -m api.LearningAgentAPI
 ```
 
 ### Port Already in Use (Error 10048)
