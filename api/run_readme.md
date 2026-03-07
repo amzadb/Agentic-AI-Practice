@@ -1,7 +1,6 @@
 # Running the APIs
 
-> **Important:** Run all commands from the project root directory:  
-> `c:\Users\amzadbasha.shaik\OneDrive - iSpace\Projects\AIPractice\Agentic-AI`
+> **Important:** Run all commands from the project root directory.
 
 ---
 
