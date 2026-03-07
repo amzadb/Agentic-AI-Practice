@@ -42,10 +42,10 @@ Version: 1.0.0
 """
 
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 
 from api.SearchAgentsAPI import router as search_router
 from api.LearningAgentAPI import router as learning_router
+from util.cors_config import setup_cors
 
 # Initialize the main FastAPI application
 app = FastAPI(
@@ -54,15 +54,8 @@ app = FastAPI(
     description="Unified API gateway for AI-powered search and learning services"
 )
 
-# Enable CORS for cross-origin requests (configured for development)
-# TODO: For production, restrict allow_origins to specific domains
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins in development
-    allow_credentials=True,
-    allow_methods=["*"],  # Allow all HTTP methods
-    allow_headers=["*"],  # Allow all headers
-)
+# Setup CORS middleware using utility function
+setup_cors(app)
 
 # Include API routers
 # Each router provides a complete set of endpoints from its respective API

@@ -23,11 +23,11 @@ Version: 1.0.0
 """
 
 from fastapi import APIRouter, FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import uvicorn
 
 from agents.MySearchAgent import MySearchAgent
+from util.cors_config import setup_cors
 
 from dotenv import load_dotenv
 load_dotenv()  # Load API keys from .env file
@@ -130,8 +130,8 @@ def create_app():
         uvicorn.run(app, host="localhost", port=8001)
     
     Note:
-        CORS is configured with allow_origins=["*"] for development.
-        For production, restrict origins to specific domains.
+        CORS is configured via centralized utility function (util.cors_config).
+        For production, update allow_origins in the utility function.
     """
     app = FastAPI(
         title="Search Agents API",
@@ -139,14 +139,8 @@ def create_app():
         description="AI-powered search API supporting multiple agents and search tools"
     )
     
-    # Enable CORS for cross-origin requests (configured for development)
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=["*"],  # TODO: Restrict origins in production
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
+    # Setup CORS middleware using utility function
+    setup_cors(app)
     
     # Include the search router
     app.include_router(router)
