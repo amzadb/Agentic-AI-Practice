@@ -25,7 +25,7 @@ Examples:
         from api.LearningAgentAPI import router
         app.include_router(router)
 
-Author: Your Name
+Author: Amzad Basha
 Version: 1.0.0
 """
 
