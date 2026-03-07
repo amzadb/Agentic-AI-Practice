@@ -21,13 +21,99 @@ Supports both Streamlit and FastAPI interfaces.
 ```
 Agentic-AI/
 │
-├── agno/                # Core agent and tool modules
-├── api/                 # FastAPI endpoints
-├── streamlit/           # Streamlit UI apps
-├── util/                # Utility modules (key loading, agent wrappers, etc.)
-├── requirements.txt     # Python dependencies
-└── README.md
+├── api/                           # FastAPI REST API Services
+│   ├── main.py                    # Integrated Gateway (Port 8000) - combines all APIs
+│   ├── SearchAgentsAPI.py         # Standalone Search Service (Port 8001)
+│   ├── LearningAgentAPI.py        # Standalone Learning Service (Port 8002)
+│   ├── run_readme.md              # API running instructions
+│   └── __pycache__/               # Python cache files
+│
+├── agents/                        # Agent Implementations
+│   ├── MySearchAgent.py           # Multi-model search agent wrapper
+│   ├── MyLearningAgent.py         # Personalized learning plan generator
+│   ├── TasksAgent.py              # Task classification agent
+│   ├── AgentMetrics.py            # Agent performance metrics
+│   ├── DeepSeekAgent.py           # DeepSeek LLM integration
+│   ├── GeminiAgent.py             # Google Gemini integration
+│   ├── GroqAgent.py               # Groq LLM integration
+│   ├── OpenAIAgent.py             # OpenAI integration
+│   ├── tasks.txt                  # Sample task definitions
+│   └── __pycache__/               # Python cache files
+│
+├── agno/                          # Core Agent & Tool Modules
+│   ├── AudioAgent.py              # Audio processing agent
+│   ├── BlogGeneratorAgent.py      # Blog generation agent
+│   ├── ExcelDataAgent.py          # Excel file processing
+│   ├── FinanceAgent.py            # Financial data analysis
+│   ├── FindWeather.py             # Weather information retrieval
+│   ├── ImageAgent.py              # Image processing agent
+│   ├── MovieRecommendationAgent.py# Movie recommendation engine
+│   ├── NewsAgent.py               # News aggregation agent
+│   ├── ReasoningAgent.py          # Multi-step reasoning agent
+│   ├── SQLiteDBAgent.py           # Database query agent
+│   ├── VideoAgent.py              # Video processing agent
+│   ├── WebAndFinanceAgent.py      # Web scraping & finance combo
+│   ├── WhatsAppAgent.py           # WhatsApp integration
+│   ├── YouTubeSummaryAgent.py     # YouTube video summarization
+│   └── keys.py                    # API key management for agno modules
+│
+├── streamlit/                     # Streamlit Interactive UIs
+│   ├── SearchAgentsApp.py         # Search interface
+│   ├── LearningGuideApp.py        # Learning plan generator UI
+│   ├── TasksClassifierApp.py      # Task classification interface
+│   ├── TravelPlanningApp.py       # Travel planning assistant
+│   ├── ResumeFormatter.py         # Resume formatting tool
+│   └── KnowYourself.py            # Self-assessment application
+│
+├── autogen/                       # Microsoft AutoGen Framework
+│   ├── TravelPlanningAgent.py     # AutoGen travel planning agent
+│   ├── keys.py                    # API key management for autogen
+│   └── __pycache__/               # Python cache files
+│
+├── langchain/                     # LangChain Framework Implementations
+│   ├── ExcelProcessAgent.py       # LangChain Excel processing
+│   └── SQLite-EmployeesData.py    # LangChain SQLite database agent
+│
+├── util/                          # Utility & Configuration Modules
+│   ├── cors_config.py             # Centralized CORS configuration utility
+│   ├── LoadMyKeys.py              # API key loader utility
+│   ├── __init__.py                # Package initialization
+│   └── __pycache__/               # Python cache files
+│
+├── misc/                          # Miscellaneous Utilities
+│   ├── generate_html.py           # HTML generation helper
+│   ├── MailAgent.py               # Email sending agent
+│   ├── tabs_and_cards.html        # UI component template
+│   ├── tabs_and_cards.json        # Component configuration
+│   ├── html_part1.txt             # HTML template parts
+│   └── html_part2.txt             # HTML template parts
+│
+├── storage/                       # Data Storage Directory
+│   └── (for temporary/persistent data)
+│
+├── requirements.txt               # Python dependencies
+├── README.md                      # Project documentation (you are here)
+└── .env                          # Environment variables (create this file)
+    # Required: API keys for various services
+    # OPENAI_API_KEY=xxx
+    # GEMINI_API_KEY=xxx
+    # ANTROPHIC_API_KEY=xxx
+    # GROQ_API_KEY=xxx
 ```
+
+### **Directory Descriptions**
+
+| Directory | Purpose | Key Files |
+|-----------|---------|-----------|
+| **api/** | FastAPI REST services with 3 deployment modes | main.py, SearchAgentsAPI.py, LearningAgentAPI.py |
+| **agents/** | Wrapper agents for different LLM providers | MySearchAgent.py, MyLearningAgent.py |
+| **agno/** | Core specialized agent implementations | AudioAgent.py, ExcelDataAgent.py, SQLiteDBAgent.py |
+| **streamlit/** | Interactive web UIs using Streamlit | SearchAgentsApp.py, LearningGuideApp.py |
+| **autogen/** | Microsoft AutoGen multi-agent framework | TravelPlanningAgent.py |
+| **langchain/** | LangChain framework implementations | ExcelProcessAgent.py, SQLite-EmployeesData.py |
+| **util/** | Shared utilities and configuration | cors_config.py, LoadMyKeys.py |
+| **misc/** | Helper scripts and utilities | generate_html.py, MailAgent.py |
+| **storage/** | Data persistence directory | (user-created files) |
 
 ---
 
