@@ -31,6 +31,126 @@ Agentic-AI/
 
 ---
 
+## Architecture
+
+The Agentic-AI platform uses a modular, layered architecture with multiple deployment options:
+
+```mermaid
+graph TB
+    subgraph Clients["👥 Clients"]
+        WebBrowser["Web Browser"]
+        MobileApp["Mobile App"]
+        PostmanAPI["API Client"]
+    end
+
+    subgraph APILayer["🔌 API Layer"]
+        MainAPI["main.py<br/>Port 8000<br/>Integrated Gateway"]
+        SearchAPI["SearchAgentsAPI<br/>Port 8001<br/>Standalone"]
+        LearningAPI["LearningAgentAPI<br/>Port 8002<br/>Standalone"]
+    end
+
+    subgraph RouterLayer["🛣️ Router Layer"]
+        SearchRouter["SearchRouter<br/>/search"]
+        LearningRouter["LearningRouter<br/>/learning-plan"]
+    end
+
+    subgraph AgentLayer["🤖 Agent Layer"]
+        SearchAgent["MySearchAgent<br/>- Open AI<br/>- Gemini<br/>- Anthropic<br/>- Groq"]
+        LearningAgent["MyLearningAgent<br/>- Skill Analysis<br/>- Learning Plans<br/>- Resource Recs"]
+    end
+
+    subgraph ExternalServices["🌐 External Services"]
+        DuckDuckGo["DuckDuckGo<br/>Search"]
+        GoogleSearch["Google Search"]
+        YouTube["YouTube<br/>API"]
+        Udemy["Udemy<br/>API"]
+        LinkedIn["LinkedIn<br/>API"]
+        OpenAIAPI["OpenAI API"]
+        GeminiAPI["Gemini API"]
+        GroqAPI["Groq API"]
+    end
+
+    subgraph UtilLayer["⚙️ Utilities"]
+        CORS["CORS Config<br/>cors_config.py"]
+        EnvConfig[".env<br/>API Keys"]
+    end
+
+    Clients -->|HTTP Requests| MainAPI
+    Clients -->|HTTP Requests| SearchAPI
+    Clients -->|HTTP Requests| LearningAPI
+
+    MainAPI -->|includes| SearchRouter
+    MainAPI -->|includes| LearningRouter
+    SearchAPI -->|uses| SearchRouter
+    LearningAPI -->|uses| LearningRouter
+
+    SearchRouter -->|delegates| SearchAgent
+    LearningRouter -->|delegates| LearningAgent
+
+    SearchAgent -->|sends queries| DuckDuckGo
+    SearchAgent -->|sends queries| GoogleSearch
+    SearchAgent -->|uses model| OpenAIAPI
+    SearchAgent -->|uses model| GeminiAPI
+    SearchAgent -->|uses model| GroqAPI
+
+    LearningAgent -->|fetches resources| YouTube
+    LearningAgent -->|fetches courses| Udemy
+    LearningAgent -->|analyzes profile| LinkedIn
+    LearningAgent -->|generates plans| OpenAIAPI
+
+    MainAPI -->|applies| CORS
+    SearchAPI -->|applies| CORS
+    LearningAPI -->|applies| CORS
+
+    SearchAgent -->|loads keys| EnvConfig
+    LearningAgent -->|loads keys| EnvConfig
+
+    style MainAPI fill:#4A90E2,stroke:#2E5C8A,color:#fff
+    style SearchAPI fill:#7B68EE,stroke:#4A2D7A,color:#fff
+    style LearningAPI fill:#50C878,stroke:#2D7A50,color:#fff
+    style SearchAgent fill:#FF6B6B,stroke:#8B3333,color:#fff
+    style LearningAgent fill:#FF6B6B,stroke:#8B3333,color:#fff
+    style CORS fill:#FFB84D,stroke:#8B5A00,color:#000
+```
+
+### **Architecture Overview**
+
+#### **🔌 API Layer (3 Deployment Modes)**
+- **main.py (Port 8000)** - Integrated gateway that combines both SearchAgentsAPI and LearningAgentAPI into a single FastAPI application. Ideal for production deployments where you want unified access to all services.
+- **SearchAgentsAPI (Port 8001)** - Standalone microservice for AI-powered search operations. Can be deployed independently or integrated into main.py. Supports multiple AI agents (OpenAI, Gemini, Anthropic, Groq) and search tools.
+- **LearningAgentAPI (Port 8002)** - Standalone microservice for personalized learning plan generation. Analyzes user skills and aspirations to create customized learning roadmaps with resource recommendations.
+
+#### **🛣️ Router Layer**
+- **SearchRouter** - Handles `/search` endpoint, validates requests, and delegates to SearchAgent for computation
+- **LearningRouter** - Handles `/learning-plan` endpoint, manages learning plan generation requests
+- Routers can be composed into different FastAPI applications for flexible deployment
+
+#### **🤖 Agent Layer**
+- **MySearchAgent** - Executes search queries using configurable AI models and search tools. Supports fallback mechanisms and response extraction from various agent types.
+- **MyLearningAgent** - Analyzes user skills, identifies learning gaps, and generates personalized roadmaps with curated YouTube, Udemy, and other educational resources.
+
+#### **🌐 External Integrations**
+- **AI Models**: OpenAI (GPT series), Google Gemini, Anthropic Claude, Groq
+- **Search Engines**: DuckDuckGo, Google Search
+- **Learning Platforms**: YouTube, Udemy, LinkedIn
+- **API Key Management**: Centralized via `.env` configuration
+
+#### **⚙️ Utilities**
+- **CORS Configuration** (`util/cors_config.py`) - Centralized CORS middleware setup shared across all APIs. Simplifies security configuration for production deployments.
+- **Environment Management** (`.env`) - Securely manages API keys and credentials
+
+### **Key Architecture Features**
+
+✅ **Modular Design** - APIs can run standalone or integrated  
+✅ **Microservices Ready** - Each API has its own port for independent scaling  
+✅ **FastAPI Router Pattern** - Flexible composition of endpoints  
+✅ **Shared Utilities** - DRY principle with centralized configuration  
+✅ **Multi-Model Support** - Agents support multiple AI providers  
+✅ **Dual-Mode Operation** - Both integrated and standalone deployment options  
+✅ **Security** - Centralized CORS configuration with production-ready structure
+
+---
+
 ## Setup
 
 1. **Clone the repository**
