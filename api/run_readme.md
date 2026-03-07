@@ -135,7 +135,6 @@ This dual approach allows both APIs to be:
 ### ModuleNotFoundError: No module named 'agents'
 **Solution:** Make sure you run commands from the project root directory and use the `-m` flag:
 ```bash
-cd "c:\Users\amzadbasha.shaik\OneDrive - iSpace\Projects\AIPractice\Agentic-AI"
 python -m api.SearchAgentsAPI
 python -m api.LearningGuideAPI
 ```
