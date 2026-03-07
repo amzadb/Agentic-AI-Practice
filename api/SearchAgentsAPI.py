@@ -1,7 +1,7 @@
 """SearchAgentsAPI - FastAPI service for AI-powered search operations.
 
 This module provides a FastAPI-based REST API for executing search queries using
-various AI agents (e.g., Perplexity, Groq, DeepSeek) and search tools (e.g., DuckDuckGo).
+various AI agents (e.g., Open AI, Gemini, Anthropic, Groq) and search tools (e.g., Duck Duck Go, Google Search).
 
 The API can run in two modes:
 1. As a standalone microservice on port 8001
