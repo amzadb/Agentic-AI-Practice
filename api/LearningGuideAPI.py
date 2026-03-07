@@ -1,14 +1,12 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import uvicorn
 
-import sys
-import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from util.LoadMyKeys import load_keys
 from agents.MyLearningAgent import MyLearningAgent
 
-load_keys()
+from dotenv import load_dotenv
+load_dotenv()  # Load API keys from .env file
 
 router = APIRouter()
 
@@ -43,3 +41,31 @@ def generate_learning_plan(request: LearningPlanRequest):
         return {"learning_plan": content}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+# Standalone FastAPI app (for running LearningGuideAPI independently)
+def create_app():
+    """Create and return a standalone FastAPI app"""
+    app = FastAPI(title="Learning Guide API", version="1.0.0")
+    
+    # Enable CORS
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+    
+    # Include the router
+    app.include_router(router)
+    
+    @app.get("/")
+    def root():
+        return {"message": "Learning Guide API", "endpoint": "/learning-plan"}
+    
+    return app
+
+# Run independently if this file is executed directly
+if __name__ == "__main__":
+    app = create_app()
+    uvicorn.run(app, host="localhost", port=8002)
