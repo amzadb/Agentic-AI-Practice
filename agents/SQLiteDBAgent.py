@@ -71,7 +71,8 @@ agent = Agent(
 # Execute Database Queries
 # ============================================================================
 # Query the database to retrieve all tables and their schemas
-agent.print_response("Show me all tables in the database and their schemas")
+# agent.print_response("Show me all tables in the database and their schemas")
 # agent.print_response("List all artists in the database")
 # agent.print_response("List the employees from the database")
 # agent.print_response("Insert a new employee with first name 'Arsahd', last name 'Afsar', title 'AI Engineer' and email 'kireeti.s@gmail.com'")
+agent.print_response("Delete all employees with email 'kireeti.s@gmail.com'")

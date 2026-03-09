@@ -40,7 +40,7 @@ Environment Requirements:
 
 import base64
 import requests
-from agno.agent import Agent, RunResponse  # noqa
+from agno.agent import Agent
 from agno.media import Audio
 from agno.models.openai import OpenAIChat
 
